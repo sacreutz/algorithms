@@ -1,0 +1,431 @@
+def longestSubstringWithoutDuplication(string):
+    lastSeen = {}
+    longest = [0,1]
+    startIdx = 0
+    for i, char in enumerate(string)
+        if char in lastSeen:
+            startIdx = max(startIdx, lastSeen[char] + 1)
+        if longest[1] - longest[0] < i + 1 - startIdx:
+            longest = [startIdx, i + 1]
+        lastseen[char] = i
+    return string[longest[0]:longest[1]]
+
+function longestSubstringWithoutDuplication(string) {
+  let lastSeen = {}
+	let longest = [0, 1]
+	let startIdx = 0
+	
+	for (let i = 0; i < string.length; i++){
+		let char = string[i]
+		if (char in lastSeen) {
+			startIdx = Math.max(startIdx, lastSeen[char] + 1)	
+		}
+		
+		if (longest[1] - longest[0] < i + 1 - startIdx) {
+		  longest = [startIdx, i + 1]	
+		}
+		lastSeen[char] = i;
+	}
+	return string.slice(longest[0], longest[1])
+}
+
+--------------------------------------------------------------------
+
+Number of Islands  //graph algorithms
+public int numIslands(char[][] grid) {
+   if (grid == null || grid.length == 0) {
+       return 0; 
+   }
+  int numIslands = 0; 
+  for (int i = 0; i < grid.length; i++) {
+     for (int j = 0; j < grid[i].length; j++) {
+         if (grid[i][j] == '1') {
+           numIslands += dfs(grid, i, j);
+    }
+  }
+}
+return numIslands;
+}
+public int dfs(char[][] grid, int i, int j) {
+   if (i < 0 || i >= grid.length; || j < 0 || j >= grid[i].length || grid[i][j] == '0') {
+     return 0;
+}
+  grid[i][j]  = '0';
+   dfs(grid, i + 1, j);
+   dfs(grid, i - 1, j);
+   dfs(grid, i, j + 1);
+   dfs(grid, i, j -1);
+   return 1; 
+}
+
+
+-----------------------------------------------------------------------
+
+//merge k sorted lists  (java)
+
+class Solution {
+   public ListNode mergeKLists(ListNode[] lists) {
+      PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+         for(ListNode head: lists) {
+            while(head != null) {
+                minHeap.add(head.val);
+                head = head.next;
+             }
+          }
+
+         ListNode dummy = new ListNode(-1);
+         ListNode head = dummy;
+         while (!minHeap.isEmpty()) {
+             head.next = new ListNode(minHeap.remove());
+             head = head.next;
+        }
+         return dummy.next; 
+     }
+}
+-----------------------------------------------------------------------
+
+
+def invertBinaryTree(tree):
+    queue = [tree]
+    while len(queue):
+        current = queue.pop(0)
+        if current is None:
+           continue
+        swapLeftAndRight(current)
+        queue.append(current.left)
+        queue.append(current.right)
+
+def swapLeftAndRight(tree):
+    tree.left, tree.right = tree.right, tree.left
+----------------------------------------------------------------------
+first unique character in string
+
+var firstUniqChar = function(s) {
+   for(i=0;i<s.length;i++){
+       if (s.indexOf(s[i])===s.lastIndexOf(s[i])){
+          return i;
+      } 
+   }
+   return -1;
+};
+
+ var firstUniqChar = function(s) 
+    var map=new Map();
+    for(i=0;i<s.length;i++){
+         if(map.has(s[i])){
+             map.set(s[i],2);
+         }
+         else{
+             map.set(s[i],1);
+         }
+     }
+
+    for(i=0;i<s.length;i++){
+        if(map.has(s[i]) && map.get(s[i])===1){
+            return i;
+        }
+    }
+    return -1;
+ } ;
+ 
+ ---------------------------------------------------------------------
+ 
+ //reverse linked list  O(n) where n = number of nodes
+
+class Solution {
+    public ListNode reverseList(listNode head) {
+        Stack<ListNode> stack = new Stack<ListNode>();
+        while(head != null) {
+           stack.push(head);
+           head = head.next;
+       }
+      ListNode dummy = new ListNode(-1);
+      head = dummy;
+      while(!stack.isEmpty()) {
+           ListNode current = stack.pop();
+           head.next = new ListNode(current.val);
+           head = head.next; 
+   }
+     return dummy.next;  
+  }
+}
+
+----------------------------------------------------------------------
+
+zigzag traversal
+
+
+List<List<Integer>> res = new ArrayList<>();
+      if (root == null)
+          return res;
+     Stack<TreeNode> s1 = new Stack<>();
+     Stack<TreeNode> s2 = new Stack<>();
+     s1.push(root);
+     List<Integer> list = new ArrayList<>();
+     while (!s1.isEmpty() || !s2.isEmpty()) {
+        while (!s1.isEmpty()) {
+           TreeNode n = s1.pop();
+           list.add(n.val);
+           if (n.left != null) s2.push(n.left);
+           if (n.right != null) s2.push(n.right);
+     }
+    if (!list.isEmpty()) 
+           res.add(new ArrayList<>(list));
+    list.clear();
+
+         while (!s2.isEmpty()) {
+             TreeNode n = s2.pop();
+             list.add(n.val);
+             if (n.right != null) s1.push(n.right);
+             if (n.left != null) s1.push(n.left);
+       }
+    if(!list.isEmpty())
+        res.add(new ArrayList<>(list));
+    list.clear();
+}
+
+return res; 
+
+-----------------------------------------------------------------
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> groupedAnagrams = new ArrayList<>();
+        HashMap<String, List<String>> map = new HashMap<>();
+        for (String current: strs) {
+              char[] characters = current.toCharArray();
+              Arrays.sort(characters);
+              String sorted = new String(characters);
+              if(!map.containsKey(sorted)) {
+                    map.put(sorted, new ArrayList<>());
+             }
+
+                 map.get(sorted).add(current);
+       }
+         groupedAnagrams.addAll(map.values());
+         return groupedAnagrams;
+  }
+
+}
+
+---------------------------------------------------------------
+using System;
+
+class MainClass {
+  public static string Palindrome(string str) 
+  { 
+        string newStr = str.Replace(" ", string.Empty); 
+        var arr = newStr.ToCharArray();
+        string revStr = "";
+        for(int i = newStr.Length-1; i >= 0; i--)
+        {
+            revStr += newStr[i];
+        }
+        return newStr.Equals(revStr) ? "true" : "false";
+  }
+
+  static void Main() {  
+    // keep this function call here
+    Console.WriteLine(Palindrome(Console.ReadLine()));
+  } 
+   
+}
+--------------------------------------------------------------
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        // init heap 'the smallest element first'
+        PriorityQueue<Integer> heap =
+            new PriorityQueue<Integer>((n1, n2) -> n1 - n2);
+
+        // keep k largest elements in the heap
+        for (int n: nums) {
+          heap.add(n);
+          if (heap.size() > k)
+            heap.poll();
+        }
+
+        // output
+        return heap.poll();        
+  }
+}
+--------------------------------------------------------------
+
+def depthFirstSearch(self, array):
+    array.append(self.name)
+    for child in self.children:
+        child.depthFirstSearch(array)
+return array 
+
+depthFirstSearch(array) {
+    array.push(this.name);
+    for (const child of this.children) {
+       child.depthFirstSearch(array);
+    }
+
+   return array;
+}
+
+
+breadthFirstSearch(array) {
+  const queue = [this];
+  while (queue.length > 0) {
+   const current = queue.shift();
+   array.push(current.name)
+   for (const child of current.children) {
+       queue.push(child)
+    }
+}
+return array
+
+}
+
+-------------------------------------------------------------
+
+3 sum PYTHON ( too slow....)
+
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        triplets = []
+        for i in range(len(nums) - 2):
+            left = i + 1
+            right = len(nums) - 1
+            while left < right:
+                currentSum = nums[i] + nums[left] + nums[right]
+                if currentSum == 0:
+                    newTriplet = [nums[i], nums[left], nums[right]]
+                    if newTriplet not in triplets:
+                        triplets.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                elif currentSum < 0:
+                    left += 1
+                elif currentSum > 0:
+                    right -= 1
+        return triplets
+        
+        --------------------------------------------------
+        
+def caesarCipherEncryptor(string, key):
+    newLetters = []
+    newKey = key % 26
+    for letter in string:
+        newLetters.append(getNewLetter(letter, newKey))
+    return "".join(newLetters)    
+
+def getNewLetter(letter, key):
+    newLetterCode = ord(letter) + key
+    return chr(newLetterCode) if newLetterCode <= 122 else chr(96 + newLetterCode % 122)
+------------------------------------------------
+
+def longestPalindromicSubstring(string):
+    currentLongest = [0, 1]
+    for i in range(1, len(string)):
+        odd = getLongestPalindromeFrom(string, i - 1, i + 1)
+        even = getLongestPalindromeFrom(string, i - 1, i)
+        longest = max(odd, even, key = lamba x:  x[1] - x[0]
+        currentLongest  = max(longest, currentLongest, key = lambda x: x[1] - x[0])
+    return string[currentLongest[0]:currentLongest[1]]
+
+def getLongestPalindromeFrom(string, leftIdx, rightIdx):
+    while leftIdx >=0 and rightIdx < len(string):
+        if string[leftIdx] != string[rightIdx]        
+            break
+        leftIdx -=1 
+        leftIdx +=1
+    return [leftIdx + 1, rightIdx]
+
+O(n^2) (n is length of input string)
+
+---------------------------------------------------
+def maxSubsetSumNoAdjacent(array):
+    if not len(array):
+        return 0
+    elif len(array) == 1:
+       return array[0]
+    maxSums = array[:]
+    maxSums[1] = max(array[0], array[1])
+    for i in range (2, len(array)):
+        maxSums[i] = max(maxSums[i-1], maxSums[i - 2] + array[i])
+    return maxSums[-1]
+-----------------------------------------------------------
+//flatten binary tree (Java)
+similar to preorder traversal?
+class Solution {
+   public void flatten(TreeNode root) {
+      if (root == null) return;
+      Stack<TreeNode> stack = new Stack();
+      stack.push(root)
+
+    while(!stack.isEmpty())  {
+        TreeNode current_node = stack.pop();
+        if (current_node.right != null) {
+               stack.push(current_node.right);
+     }
+      if (current_node.left != null) {
+       stack.push(current_node.left);  
+     }
+      if (!stack.isEmpty()) {
+         current_node.right = stack.peek();
+     }
+      current_node.left = null;  
+    }
+  }
+}
+---------------------------------------------------------
+HashSet<String> bannedWords = new HashSet<>();
+for (String word: banned) {
+      bannedWords.add(word);
+    }
+
+   HashMap<String, Integer> counts = new HashMap<>();
+   for (String word: paragraph.replaceAll("[^a-zA-Z]", " ").toLowerCase().split(" ")) {
+       if(!bannedWords.contains(word)) {
+         counts.put(word, counts.getOrDefault(word, 0) + 1); 
+      }
+   }
+
+String result = "";
+for(String key: counts.keySet()) {
+  if (result.equals("") || counts.get(key) > counts.get(result)) {
+     result = key;
+  }
+
+}
+
+return result;
+--------------------------------------------------------------------
+
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        
+        
+    List <String> res = new ArrayList<>();
+    recur(res, "", root);
+    return res;
+           
+    }
+    
+    public void recur(List<String> res, String s, TreeNode root){
+   if (root == null) { return; }
+   s += Integer.toString(root.val);
+   s += "->";
+   if (root.left == null && root.right == null) { 
+       String s2 = s.substring(0, s.length()-2);
+       res.add(s2);
+       return; }
+  recur(res, s, root.left);
+ recur(res, s, root.right); 
+}
+    
+}
+
+---------------------------------------------
+
+
+
+
